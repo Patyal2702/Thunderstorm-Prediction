@@ -1,0 +1,39 @@
+<html>
+
+<head>
+    <style>
+        .fun {
+            background-color: #70cef0;
+            padding: 1px;
+        }
+    </style>
+</head>
+
+<body bgcolor=#ffffff>
+
+    <center>
+
+        <div class="fun">
+                <font size="60"> ThunderStrom Prediction Using Machine Learning </font>
+        </div>
+
+        {%if data == 1%}
+        <img src='static\thunder.jpg' style="width:350px;height:250px;">
+        <h1 style="border: 4px solid; border-color: rgb(235, 20, 4); border-radius: 5px;">Chances of Thunderstrom</h1>
+        
+
+        {%else%}
+        <img src='static\clear.png' style="width:350px;height:250px;">
+        <h1 style="border: 4px solid; border-color: rgb(92, 244, 4); border-radius: 5px;">No Thunderstrom</h1>
+        
+
+
+        {%endif%}
+        <br><br>
+        <a style="border: 2px solid; border-bottom: 3px; font-size: large;" href='/'>go back to home page</a>
+
+    </center>
+
+</body>
+
+</html>

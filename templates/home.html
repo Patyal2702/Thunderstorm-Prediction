@@ -1,0 +1,150 @@
+<html>
+
+<head>
+    <style>
+        .fun {
+            background-color: #70cef0;
+            padding: 1px;
+        }
+
+        body {
+            background-color: #ffffff;
+        }
+
+        table,
+        th,
+        td {
+            border: 0px solid rgb(126, 142, 192);
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            background-color: #9cf3e973;
+            padding: 20px;
+            font-size: larger;
+        }
+
+        input[type=text],
+        select {
+            padding: 15px 25px;
+            margin: 10px 10px;
+            display: inline-block;
+            border: 3px solid rgb(142, 207, 237);
+            border-radius: 12px;
+            box-sizing: border-box;
+            background-color: #f1f5f6;
+        }
+
+        input[type=button],
+        input[type=submit] {
+            background-color: #0ea85b;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+    <title> Prediction </title>
+
+</head>
+
+<body bgcolor=#97F7E6>
+
+    <center>
+        <div class="fun">
+            <center>
+                <font size="60"> ThunderStorm Prediction Using Machine Learning </font>
+                <center>
+        </div>
+        <img src='static\tstorm.png'>
+        <div>
+            <form name="f1">
+                <input type="text" placeholder="Enter City Name Here" name="tf1">
+                <input type="button" value="Enter" onclick="viewWeather1()">
+            </form>
+        </div>
+
+        <table>
+            <tr>
+                <th>
+                    Current Location :
+                </th>
+                <th id="box1"> </th>
+                <th>
+                    Current Region :
+                </th>
+                <th id="box2"> </th>
+            </tr>
+
+            </tr>
+        </table>
+        <form method="POST" , action="{{url_for('home')}}">
+            <b>
+                <h3> Temperature : <input type="text" , name='a' , placeholder="Temperature">
+                    Wind Speed : <input type="text" , name='b' , placeholder="Wind Speed"> <br>
+                    Humidity : <input type="text" , name='c' , placeholder="Humidity">
+                    Pressure : <input type="text" , name='d' , placeholder="Pressure">
+                    <br>
+
+            </b>
+            <input type="submit" , value='Predict'>
+        </form>
+
+        <script>
+            function viewWeather1() {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        myFunction(this);
+                    }
+                };
+                xhttp.open("GET", "http://api.weatherapi.com/v1/current.json?key=a9e3a76eea6a49f78e0151712220704&q=" +
+                    f1.tf1.value,
+                    true);
+                xhttp.send();
+
+                function myFunction(xml) {
+                    var xmlDoc, txt;
+                    xmlDoc = xml.responseText;
+                    var obj = JSON.parse(xmlDoc);
+                    document.getElementById("box1").innerHTML = obj.location.name;
+                    document.getElementById("box2").innerHTML = obj.location.country;
+                    viewWeather2()
+                }
+            }
+        </script>
+        <script>
+            function viewWeather2() {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        myFunction(this);
+                    }
+                };
+                xhttp.open("GET", "http://api.weatherapi.com/v1/current.json?key=a9e3a76eea6a49f78e0151712220704&q=" +
+                    f1.tf1.value,
+                    true);
+                xhttp.send();
+
+                function myFunction(xml) {
+                    var xmlDoc, txt;
+                    xmlDoc = xml.responseText;
+                    var obj = JSON.parse(xmlDoc);
+                    document.getElementsByName('a')[0].value = obj.current.temp_c;
+                    document.getElementsByName('b')[0].value = obj.current.wind_kph;
+                    document.getElementsByName('c')[0].value = obj.current.humidity;
+                    document.getElementsByName('d')[0].value = obj.current.pressure_mb;
+                }
+            }
+        </script>
+
+
+
+    </center>
+
+</body>
+
+</html>
